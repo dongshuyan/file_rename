@@ -2,7 +2,7 @@
 import os       
 import sys 
 import re
-
+lan=""
 def findnum(name):
     num=re.findall(r" ([0-9][0-9]) ",name)
     if len(num)==0:
@@ -69,21 +69,47 @@ def rename(path,laypath):
         if os.path.isfile(path+file_):
             if file_.find('.ass') >=0 and file_[0]!='.' :
                 num=findnum(file_)
+                if len(re.findall(r"CN",lan)) >0:
+                    print("找到第",num,"话字幕:",file_)
+                elif len(re.findall(r"EN",lan))>0:
+                	print("Find the "+num.strip()+"th video subtitle:"+file_)
                 layout=findname(num,laypath)
+                #print("",layout)#print("",layout)
                 newname=layout.replace('XX',str(num),100)+findtcsc(file_)
                 #print("old name= ",file_,"\n new name=",newname,"\n")
-                print("old name= ",path+file_,"\n new name=",path+newname,"\n")
+                #print("old name= ",path+file_,"\n new name=",path+newname,"\n")
+                if len(re.findall(r"CN",lan)) >0:
+                    print("将原始字幕文件：",path+file_,"\n替换为：",path+newname)
+                elif len(re.findall(r"EN",lan))>0:
+                	print("Replace the original subtitle file:",path+file_,"\nwith:",path+newname)
                 print ("\n\n")
                 os.rename(path+file_,path+newname)
                 
 
 if __name__ == '__main__':
-    path = sys.argv[1]
-    laypath = sys.argv[2]
+    lan  = input("Please choose language: \n(中文请输入CN, EN for English.) \nExample:CN\n")
+    if len(re.findall(r"CN",lan)) >0:
+        laypath = input("请输入视频文件所在文件夹绝对路径.\n例如: /Users/moyu/Downloads/video\n")
+        path= input("请输入字幕文件所在文件夹绝对路径.\n例如: /Users/moyu/Downloads/subtitle\n")
+    elif len(re.findall(r"EN",lan))>0:
+        laypath = input("Please enter the absolute path of the folder where the video file is located.\nExample:/Users/moyu/Downloads/video\n")
+        path= input("Please enter the absolute path of the folder where the subtitle file is located\n例如: /Users/moyu/Downloads/subtitle\n")
+    else:
+        print("Error, Thanks for using!")
+        exit()
+    #path = sys.argv[1]
+    #laypath = sys.argv[2]
     if (path[len(path)-1]!='/'):
         path=path.strip()+"/"
     if (laypath[len(laypath)-1]!='/'):
         laypath=laypath.strip()+"/"
+    if len(re.findall(r"CN",lan)) >0:
+        print("字幕文件路径为：",path)
+        print("视频文件路径为：",laypath)
+    elif len(re.findall(r"EN",lan))>0:
+        print("The subtitle folder path is：",path)
+        print("Thevideo folder path is：",laypath)
+    print("\n\n_____________START_____________")
     #layout = "[Snow-Raws] 這いよれ！ニャル子さん 第XX話 (BD 1920x1080 HEVC-YUV420P10 FLACx2)"
     rename(path,laypath)
 
