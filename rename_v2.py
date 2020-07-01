@@ -49,20 +49,43 @@ def findnum(name):
         
     return num[0],sty,stz,stx
 
+
 def findtcsc(name):
+    num=re.findall(r"\.[a-z,0-9,A-Z]*\.ass",name)
+    if len(num)>0:
+        return num[0]
+    return ".ass"
+
+def findtcsc1(name):
     num=re.findall(r".tc.ass",name)
     if len(num)>0:
         return ".tc.ass"
     num=re.findall(r".sc.ass",name)
     if len(num)>0:
         return ".sc.ass"
+    num=re.findall(r".GB.ass",name)
+    if len(num)>0:
+        return ".GB.ass"
+    num=re.findall(r".BIG5.ass",name)
+    if len(num)>0:
+        return ".BIG5.ass"
+    num=re.findall(r".tw.ass",name)
+    if len(num)>0:
+        return ".tw.ass"
+    num=re.findall(r".chs.ass",name)
+    if len(num)>0:
+        return ".chs.ass"
+    num=re.findall(r".cht.ass",name)
+    if len(num)>0:
+        return ".cht.ass"
     return ".ass"
 
-def findname(num,laypath,sty,stz,stx):
+def findname(num,laypath):
     path = os.listdir(laypath)
     for file_ in path:
         if os.path.isfile(laypath+file_):
             if file_.find('.mkv') >=0 and file_[0]!='.' and file_.find('.mp4') and file_.find('.m4v') and file_.find('.mov') and file_.find('.avi') and file_.find(num):
+                '''
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
                     #print("file-name=",file_)
@@ -74,55 +97,72 @@ def findname(num,laypath,sty,stz,stx):
                     print("newlay=",newlay)
                     return newlay
                 '''
-                sty="["+num+"]"
+                sty=" "+num+" "
+                stx=" "+num+" "
+                stz=" XX "
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
-                    newlay=file_.replace(sty,"[XX]",1)
-                    newlay=newlay.split('.')[0]
+                    newlay=file_.split('.')[0]
+                    return newlay
+                sty="\["+num+"\]"
+                stx="["+num+"]"
+                stz="[XX]"
+                res=re.findall(sty,file_)
+                if not (len(res)==0):
+                    newlay=file_.split('.')[0]
                     return newlay
                 sty='-'+num
+                stx='-'+num
+                stz="-XX"
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
-                    newlay=file_.replace(sty,"-XX",1)
-                    newlay=newlay.split('.')[0]
+                    newlay=file_.split('.')[0]
                     return newlay
                 sty='第'+num+'話'
+                stx='第'+num+'話'
+                stz="第XX話"
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
-                    newlay=file_.replace(sty,"第XX話",1)
-                    newlay=newlay.split('.')[0]
+                    newlay=file_.split('.')[0]
                     return newlay
                 sty='第'+num+'话'
+                stx='第'+num+'话'
+                stz="第XX话"
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
-                    newlay=file_.replace(sty,"第XX话",1)
-                    newlay=newlay.split('.')[0]
+                    newlay=file_.split('.')[0]
                     return newlay
                 sty=num
+                stx=num
+                stz="XX"
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
-                    newlay=file_.replace(sty,"第XX話",1)
-                    newlay=newlay.split('.')[0]
+                    newlay=file_.split('.')[0]
                     return newlay
-                '''
     return 'NOT_FOUND_XX'
-
+#字幕文件路径为path
+#视频文件路径为laypath
 def rename(path,laypath):
     files = os.listdir(path)
     for file_ in files:
         if os.path.isfile(path+file_):
             if file_.find('.ass') >=0 and file_[0]!='.' :
+                #找到字幕文件的各个属性
+                #num是集数
+                #sty是正则表达式的写法sty="\["+num[0]+"\]"
+                #stz是带XX的写法stz="[XX]"
+                #stx是字符串里面的写法stx="["+num[0]+"]"
                 num,sty,stz,stx=findnum(file_)
                 if len(re.findall(r"CN",lan)) >0:
                     print("找到第",num,"话字幕:",file_)
                 elif len(re.findall(r"EN",lan))>0:
                 	print("Find the "+num.strip()+"th video subtitle:"+file_)
-                layout=findname(num,laypath,sty,stz,stx)
+                layout=findname(num,laypath)
                 #print("num=",num)
                 #print("laypath=",laypath)
                 #print("layout=",layout)
                 #print("",layout)#print("",layout)
-                newname=layout.replace('XX',str(num),100)+findtcsc(file_)
+                newname=layout+findtcsc(file_)
                 #print("old name= ",file_,"\n new name=",newname,"\n")
                 #print("old name= ",path+file_,"\n new name=",path+newname,"\n")
                 if len(re.findall(r"CN",lan)) >0:
