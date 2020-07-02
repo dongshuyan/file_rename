@@ -40,6 +40,13 @@ def findnum(name):
         stx='第'+num[0]+'话'
         return num[0],sty,stz,stx
 
+    num=re.findall(r"_([0-9]{1,2})_",name)
+    if len(num)!=0:
+        sty='_'+num[0]+'_'
+        stz="_XX_"
+        stx='_'+num[0]+'_'
+        return num[0],sty,stz,stx
+
     num=re.findall(r"([0-9]{1,2})",name)
     if len(num)!=0:
         sty=num[0]
@@ -84,6 +91,13 @@ def find_film_style(name):
         sty='第'+num[0]+'话'
         stz="第XX话"
         stx='第'+num[0]+'话'
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"_([0-9]{1,2})_",name)
+    if len(num)!=0:
+        sty='_'+num[0]+'_'
+        stz="_XX_"
+        stx='_'+num[0]+'_'
         return num[0],sty,stz,stx
 
     num=re.findall(r"([0-9]{1,2})",name)
