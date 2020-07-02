@@ -5,42 +5,88 @@ import re
 lan=""
 def findnum(name):
     
-    num=re.findall(r" ([0-9][0-9]) ",name)
+    num=re.findall(r" ([0-9]{1,2}) ",name)
     if len(num)!=0:
         sty=" "+num[0]+" "
         stz=" XX "
         stx=" "+num[0]+" "
         return num[0],sty,stz,stx
 
-    num=re.findall(r"\[([0-9][0-9])\]",name)
+    num=re.findall(r"\[([0-9]{1,2})\]",name)
     if len(num)!=0:
         sty="\["+num[0]+"\]"
         stz="[XX]"
         stx="["+num[0]+"]"
         return num[0],sty,stz,stx
 
-    num=re.findall(r"-([0-9][0-9])",name)
+    num=re.findall(r"-([0-9]{1,2})",name)
     if len(num)!=0:
         sty='-'+num[0]
         stz="-XX"
         stx="-"+num[0]
         return num[0],sty,stz,stx
 
-    num=re.findall(r"第([0-9][0-9])話",name)
+    num=re.findall(r"第([0-9]{1,2})話",name)
     if len(num)!=0:
         sty='第'+num[0]+'話'
         stz="第XX話"
         stx='第'+num[0]+'話'
         return num[0],sty,stz,stx
 
-    num=re.findall(r"第([0-9][0-9])话",name)
+    num=re.findall(r"第([0-9]{1,2})话",name)
     if len(num)!=0:
         sty='第'+num[0]+'话'
         stz="第XX话"
         stx='第'+num[0]+'话'
         return num[0],sty,stz,stx
 
-    num=re.findall(r"([0-9][0-9])",name)
+    num=re.findall(r"([0-9]{1,2})",name)
+    if len(num)!=0:
+        sty=num[0]
+        stz="XX"
+        stx=num[0]
+        return num[0],sty,stz,stx
+        
+    return num[0],sty,stz,stx
+
+def find_film_style(name):
+    
+    num=re.findall(r" ([0-9]{1,2}) ",name)
+    if len(num)!=0:
+        sty=" "+num[0]+" "
+        stz=" XX "
+        stx=" "+num[0]+" "
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"\[([0-9]{1,2})\]",name)
+    if len(num)!=0:
+        sty="\["+num[0]+"\]"
+        stz="[XX]"
+        stx="["+num[0]+"]"
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"-([0-9]{1,2})",name)
+    if len(num)!=0:
+        sty='-'+num[0]
+        stz="-XX"
+        stx="-"+num[0]
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"第([0-9]{1,2})話",name)
+    if len(num)!=0:
+        sty='第'+num[0]+'話'
+        stz="第XX話"
+        stx='第'+num[0]+'話'
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"第([0-9]{1,2})话",name)
+    if len(num)!=0:
+        sty='第'+num[0]+'话'
+        stz="第XX话"
+        stx='第'+num[0]+'话'
+        return num[0],sty,stz,stx
+
+    num=re.findall(r"([0-9]{1,2})",name)
     if len(num)!=0:
         sty=num[0]
         stz="XX"
@@ -85,6 +131,14 @@ def findname(num,laypath):
     for file_ in path:
         if os.path.isfile(laypath+file_):
             if file_.find('.mkv') >=0 and file_[0]!='.' and file_.find('.mp4') and file_.find('.m4v') and file_.find('.mov') and file_.find('.avi') and file_.find(num):
+                num1,sty,stz,stx=find_film_style(file_)
+                if len(num)==1:
+                    num='0'+num
+                if len(num1)==1:
+                    num1='0'+num1
+                if num1==num:
+                    newlay=file_.split('.')[0]
+                    return newlay
                 '''
                 res=re.findall(sty,file_)
                 if not (len(res)==0):
@@ -96,6 +150,7 @@ def findname(num,laypath):
                     newlay=newlay.split('.')[0]
                     print("newlay=",newlay)
                     return newlay
+                '''
                 '''
                 sty=" "+num+" "
                 stx=" "+num+" "
@@ -139,6 +194,7 @@ def findname(num,laypath):
                 if not (len(res)==0):
                     newlay=file_.split('.')[0]
                     return newlay
+                '''
     return 'NOT_FOUND_XX'
 #字幕文件路径为path
 #视频文件路径为laypath
@@ -146,7 +202,7 @@ def rename(path,laypath):
     files = os.listdir(path)
     for file_ in files:
         if os.path.isfile(path+file_):
-            if file_.find('.ass') >=0 and file_[0]!='.' :
+            if (file_.find('.ass') >=0 or file_.find('.srt') >=0 ) and file_[0]!='.' :
                 #找到字幕文件的各个属性
                 #num是集数
                 #sty是正则表达式的写法sty="\["+num[0]+"\]"
@@ -157,6 +213,7 @@ def rename(path,laypath):
                     print("找到第",num,"话字幕:",file_)
                 elif len(re.findall(r"EN",lan))>0:
                 	print("Find the "+num.strip()+"th video subtitle:"+file_)
+
                 layout=findname(num,laypath)
                 #print("num=",num)
                 #print("laypath=",laypath)
