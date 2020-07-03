@@ -239,7 +239,7 @@ def rename(path,laypath):
                 if len(re.findall(r"CN",lan)) >0:
                     print("找到第",num,"话字幕:",file_)
                 elif len(re.findall(r"EN",lan))>0:
-                	print("Find the "+num.strip()+"th video subtitle:"+file_)
+                    print("Find the "+num.strip()+"th video subtitle:"+file_)
 
                 layout=findname(num,laypath)
                 #print("num=",num)
@@ -252,7 +252,7 @@ def rename(path,laypath):
                 if len(re.findall(r"CN",lan)) >0:
                     print("将原始字幕文件：",path+file_,"\n替换为：",path+newname)
                 elif len(re.findall(r"EN",lan))>0:
-                	print("Replace the original subtitle file:",path+file_,"\nwith:",path+newname)
+                    print("Replace the original subtitle file:",path+file_,"\nwith:",path+newname)
                 print ("\n\n")
                 os.rename(path+file_,path+newname)
                 
@@ -260,11 +260,11 @@ def rename(path,laypath):
 if __name__ == '__main__':
     lan  = input("Please choose language: \n(中文请输入CN, EN for English.) \nExample:CN\n")
     if len(re.findall(r"CN",lan)) >0:
-        laypath = input("请输入视频文件所在文件夹绝对路径.\n例如: /Users/moyu/Downloads/video\n")
-        path= input("请输入字幕文件所在文件夹绝对路径.\n例如: /Users/moyu/Downloads/subtitle\n")
+        laypath = input("请输入视频文件所在文件夹绝对路径.\n例如（Mac）: /Users/moyu/Downloads/video\n例如（Windows）: C:\\video\n")
+        path= input("请输入字幕文件所在文件夹绝对路径.\n例如（Mac）: /Users/moyu/Downloads/subtitle\n例如（Windows）: C:\\subtitle\n")
     elif len(re.findall(r"EN",lan))>0:
-        laypath = input("Please enter the absolute path of the folder where the video file is located.\nExample:/Users/moyu/Downloads/video\n")
-        path= input("Please enter the absolute path of the folder where the subtitle file is located\n例如: /Users/moyu/Downloads/subtitle\n")
+        laypath = input("Please enter the absolute path of the folder where the video file is located.\nExample（Mac）:/Users/moyu/Downloads/video\nExample（Windows）: C:\\video\n")
+        path= input("Please enter the absolute path of the folder where the subtitle file is located\nExample（Mac）: /Users/moyu/Downloads/subtitle\nExample（Windows）: C:\\subtitle\n")
     else:
         print("Error, Thanks for using!")
         exit()
@@ -283,6 +283,6 @@ if __name__ == '__main__':
     print("\n\n_____________START_____________")
     #layout = "[Snow-Raws] 這いよれ！ニャル子さん 第XX話 (BD 1920x1080 HEVC-YUV420P10 FLACx2)"
     rename(path,laypath)
-    path= input("已完成")
+    en=input("Complete Successfully！")
 
 
