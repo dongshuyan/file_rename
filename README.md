@@ -37,4 +37,4 @@
 python3 rename_v2.py
 
 # format support
-ass/srt/ssa/sub/smi/
+ass/srt/ssa/sub/smi
