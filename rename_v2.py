@@ -111,10 +111,17 @@ def find_film_style(name):
 
 
 def findtcsc(name):
-    num=re.findall(r"\.[a-z,0-9,A-Z]*\.ass",name)
+    path=name
+    newpath=''
+    while not(path.find('.')==-1):
+        newpath=newpath+"."+path[:path.find('.')]
+        path=path[path.find('.')+1:]
+
+    stx="\.[a-z,0-9,A-Z]*\."+path
+    num=re.findall(stx,name)
     if len(num)>0:
         return num[0]
-    return ".ass"
+    return "."+path
 
 def findtcsc1(name):
     num=re.findall(r".tc.ass",name)
@@ -216,7 +223,13 @@ def rename(path,laypath):
     files = os.listdir(path)
     for file_ in files:
         if os.path.isfile(path+file_):
-            if (file_.find('.ass') >=0 or file_.find('.srt') >=0 ) and file_[0]!='.' :
+            name=file_
+            newname=''
+            while not(name.find('.')==-1):
+                newname=newname+"."+name[:name.find('.')]
+                name=name[name.find('.')+1:]
+            #if (file_.find('.ass') >=0 or file_.find('.srt') >=0 or file_.find('.ssa') >=0 or file_.find('.sub') >=0 or file_.find('.smi') >=0 ) and file_[0]!='.' :
+            if (name.find('ass') >=0 or name.find('srt') >=0 or name.find('ssa') >=0 or name.find('sub') >=0 or name.find('smi') >=0 ) and file_[0]!='.' :
                 #找到字幕文件的各个属性
                 #num是集数
                 #sty是正则表达式的写法sty="\["+num[0]+"\]"

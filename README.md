@@ -7,9 +7,9 @@
 # Example
 
 ### 1.在视频文件夹中原有文件:
-* [VCB-Studio] Uchinoko [01][Ma10p_1080p][x265_flac_aac][DHIDAS].mkv
-* [VCB-Studio] Uchinoko [02][Ma10p_1080p][x265_flac][D(DASHDA)].mkv
-* [VCB-Studio] Uchinoko [03][Ma10p_1080p][x265_flac][dasCOP312].mkv
+* [VCB-Studio] Uchinoko [01][Ma10p_1080p][x265_flac_aac][DsrtAS].mkv
+* [VCB-Studio] Uchinoko [02][Ma10p_1080p][x265_flac][D(DAsmiSHDA)].mkv
+* [VCB-Studio] Uchinoko [03][Ma10p_1080p][x265_flac][dasCOassP312].mkv
 
 ### 2.在字幕文件夹中原有文件:
 * 為了女兒，我說不定連魔王都能幹掉。_1_繁體中文.srt
@@ -23,11 +23,11 @@
 ### 5.运行结束后，字幕文件夹中的字幕名变为：
 
 * 為了女兒，我說不定連魔王都能幹掉。_1_繁體中文.srt  更改为：  <br/>
-  [VCB-Studio] Uchinoko [01][Ma10p_1080p][x265_flac_aac][DHIDAS].ass
+  [VCB-Studio] Uchinoko [01][Ma10p_1080p][x265_flac_aac][DsrtAS].srt
 * 為了女兒，我說不定連魔王都能幹掉。_02_繁體中文.srt 更改为：  <br/>
-  [VCB-Studio] Uchinoko [02][Ma10p_1080p][x265_flac][D(DASHDA)].ass
+  [VCB-Studio] Uchinoko [02][Ma10p_1080p][x265_flac][D(DAsmiSHDA)].srt
 * 為了女兒，我說不定連魔王都能幹掉。_3_繁體中文.srt  更改为：  <br/>
-  [VCB-Studio] Uchinoko [03][Ma10p_1080p][x265_flac][dasCOP312].ass
+  [VCB-Studio] Uchinoko [03][Ma10p_1080p][x265_flac][dasCOassP312].srt
 
 ### 6.从而达到讲字幕文件与视频文件相对应的目的，这是讲字幕文件全部复制到视频文件夹中，播放视频就会自动带上字幕了。
 
