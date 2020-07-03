@@ -283,6 +283,6 @@ if __name__ == '__main__':
     print("\n\n_____________START_____________")
     #layout = "[Snow-Raws] 這いよれ！ニャル子さん 第XX話 (BD 1920x1080 HEVC-YUV420P10 FLACx2)"
     rename(path,laypath)
-
+    path= input("已完成")
 
 
